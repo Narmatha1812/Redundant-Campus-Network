@@ -1,0 +1,29 @@
+enable
+configure terminal
+hostname SW3
+
+vlan 10
+ name CAMPUS
+exit
+
+interface fastEthernet 0/1
+ switchport mode trunk
+exit
+
+interface range fastEthernet 0/2-3
+ channel-group 2 mode active
+exit
+
+interface port-channel 2
+ switchport mode trunk
+exit
+
+interface range fastEthernet 0/10-11
+ switchport mode access
+ switchport access vlan 10
+exit
+
+spanning-tree mode rapid-pvst
+
+end
+write memory
