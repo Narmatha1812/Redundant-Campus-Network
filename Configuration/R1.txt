@@ -1,0 +1,24 @@
+enable
+configure terminal
+hostname R1
+
+interface gigabitEthernet 0/0
+ ip address 192.168.10.2 255.255.255.0
+ no shutdown
+ standby 10 ip 192.168.10.1
+ standby 10 priority 110
+ standby 10 preempt
+ exit
+
+interface gigabitEthernet 0/1
+ ip address 10.0.0.1 255.255.255.252
+ no shutdown
+ exit
+
+router ospf 1
+ router-id 1.1.1.1
+ network 10.0.0.0 0.0.0.3 area 0
+ network 192.168.10.0 0.0.0.255 area 0
+
+end
+write memory
